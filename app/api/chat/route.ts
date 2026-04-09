@@ -167,9 +167,10 @@ export async function POST(req: NextRequest) {
         { status: 429 }
       );
     }
-    console.error("RPA chat error:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("RPA chat error:", message);
     return NextResponse.json(
-      { error: "Something went wrong. RPA will be back shortly." },
+      { error: `Error: ${message}` },
       { status: 500 }
     );
   }
